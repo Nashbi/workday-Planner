@@ -1,57 +1,35 @@
-// var hourlySlots = document.querySelector('.hourlyslots')
-// var divName = document.getElementById('9am')
+//grabbing the exact hour and calling it variable titled veryMoment
 var veryMoment = moment().hour();
-
-// setInterval(function () {
-
+//creating a varialbe grabbed from the software titled moment that allows the live time to be displayed at the top
 var now = moment().format("MMMM Do YYYY, h:mm:ss a");
 $("#currentDay").text(now);
 
-//     for( var i = 1; i<10; i++){
+//creating a jquery styled function and loop that allows our button to be clickable and save our key & value to local storage
+$(".saveBtn").on("click", function () {
+    //here we grab the id of the parent div regardless of which timeblock it is in
+    var key = $(this).parent().attr("id");
+    //here we grab the value of what's written within the description box
+    var value = $(this).siblings(".description").val();
+    //saving the key and value to local storage
+    localStorage.setItem(key, value);
+});
+//calling our timing sequence function that is written below
+timingSequence();
 
-//         savingTask("text" + i, "" + i)
-//         displayTextArea("text" + i)
-
-//         // if(now.hour() > document.getElementById("hour"+(i+8)){
-//         //     //whatever javascript code can manipulate the color of div document.getElementById("hour"+(i+8))
-//         // }
-//     }
-
-// }, 1000);
-
-// //Task saving process
-// function savingTask(textId, buttonId) {
-//     //get the text area
-//     var textArea = document.getElementById(textId)
-//     //get the save button
-//     var saveButton = document.getElementById(buttonId)
-//     //add an on click event listener to saveButton
-//     saveButton.addEventListener('click', function () {
-
-//         //get the value of the user's input
-//         var userInput = document.getElementById(textId).value
-//         //saving each item into local storage with a unique description and id
-//         localStorage.setItem('description' + textId, userInput)
-
-//     });
-
-// };
-
-// function displayTextArea(textId) {
-
-//     var displayText = localStorage.getItem('description' + textId);
-//     document.getElementById(textId).textContent = displayText
-// };
-
+//creating a function to keep track of the timing elements
 function timingSequence() {
+    //jquery version of a for each method
     $(".time-block").each(function () {
+        //we are now grabbing the specific hour of the row and using parse int to grab the actual value of the id
         var rowHour = parseInt($(this).attr("id"));
-
+        //this is a conditional which changes the color of the timeblock to grey if its in the past
         if (rowHour < veryMoment) {
             $(this).addClass('past')
+            // a condiditon that changes the color of the timeblock if its in the present 
         } else if (rowHour === veryMoment) {
             $(this).removeClass('past')
             $(this).addClass('present')
+    // a condiditon that changes the color of the timeblock if its in the present
         } else {
             $(this).removeClass('past')
             $(this).removeClass('present')
@@ -60,15 +38,8 @@ function timingSequence() {
     });
 }
 
-timingSequence();
 
-$(".saveBtn").on("click", function () {
-    var key = $(this).parent().attr("id");
-    var value = $(this).siblings(".description").val();
-
-    localStorage.setItem(key, value);
-});
-
+//here we are grabbing the value of each timeblock that is inserted by our user
 $("#9 .description").val(localStorage.getItem("9"));
 $("#10 .description").val(localStorage.getItem("10"));
 $("#11 .description").val(localStorage.getItem("11"));
@@ -78,30 +49,3 @@ $("#14 .description").val(localStorage.getItem("14"));
 $("#15 .description").val(localStorage.getItem("15"));
 $("#16 .description").val(localStorage.getItem("16"));
 $("#17 .description").val(localStorage.getItem("17"));
-
-
-
-// function colorChanger(x,y) {
-
-//    var t = x+y
-//    console.log(t)
-
-// };
-
-// var testOne = colorChanger(4,4);
-// var testTwo = colorChanger(3,2);
-// var testThree = colorChanger(5,5);
-
-// console.log("Hello Nash")
-
-// saveButton
-
-// var userInput =
-
-// const saveToLocalStorage = () => {
-// localStorage.setItem(divName, userInput)
-// };
-
-// // localStorage.setItem("9am", userInput);
-
-// // saveButton.addEventListener("click",  )
